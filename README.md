@@ -1,2 +1,2 @@
 # movie_script
-A simple script to create movies out of individual .tiff files
+A simple Python script to create movies out of individual .tiff files
