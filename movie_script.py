@@ -72,7 +72,7 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 # Creates the video and writes the timestamps into it.
 for i in range(len(images_reg)):
     cv2.putText(images_reg[i], str(time[i])+' min', (20,450), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
-    cv2.rectangle(images_reg[i],(450,20),(487,25),(255,255,255),5)
+    cv2.rectangle(images_reg[i],(450,20),(487,25),(255,255,255),5) # This adds a 1 micrometer scale bar.
     video.write(images_reg[i])
     cv2.imwrite('still_image'+str(i)+'.tiff',images_reg[i])
 video.release()
