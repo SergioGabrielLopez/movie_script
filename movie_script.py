@@ -16,16 +16,16 @@ import cv2
 import os
 
 # Imports the images.
-img_2_47 = io.imread('U:/movie/14_47.tif')
-img_3_00 = io.imread('U:/movie/15_00.tif')
-img_3_18 = io.imread('U:/movie/15_18.tif')
-img_3_35 = io.imread('U:/movie/15_35.tif')
-img_3_52 = io.imread('U:/movie/15_52.tif')
-img_4_10 = io.imread('U:/movie/16_10.tif')
-img_4_36 = io.imread('U:/movie/16_36.tif')
-img_4_52 = io.imread('U:/movie/16_52.tif')
-img_5_05 = io.imread('U:/movie/17_05.tif')
-img_5_13 = io.imread('U:/movie/17_13.tif')
+img_2_47 = io.imread('U:/Lauren movie/new_scale (2-4 ns)/2_47.tif')
+img_3_00 = io.imread('U:/Lauren movie/new_scale (2-4 ns)/3_00.tif')
+img_3_18 = io.imread('U:/Lauren movie/new_scale (2-4 ns)/3_18.tif')
+img_3_35 = io.imread('U:/Lauren movie/new_scale (2-4 ns)/3_35.tif')
+img_3_52 = io.imread('U:/Lauren movie/new_scale (2-4 ns)/3_52.tif')
+img_4_10 = io.imread('U:/Lauren movie/new_scale (2-4 ns)/4_10.tif')
+img_4_36 = io.imread('U:/Lauren movie/new_scale (2-4 ns)/4_36.tif')
+img_4_52 = io.imread('U:/Lauren movie/new_scale (2-4 ns)/4_52.tif')
+img_5_05 = io.imread('U:/Lauren movie/new_scale (2-4 ns)/5_05.tif')
+img_5_13 = io.imread('U:/Lauren movie/new_scale (2-4 ns)/5_13.tif')
 
 # Adds the images to a list.
 list_images = [img_2_47,img_3_00,img_3_18,img_3_35,img_3_52,img_4_10,img_4_36,img_4_52,img_5_05,img_5_13]
@@ -45,7 +45,7 @@ for i in range(3,len(list_images)):
     list_images[i] = transform.warp(list_images[i],tform)
 
 # Creates the registrator.
-sr = StackReg(StackReg.RIGID_BODY)
+sr = StackReg(StackReg.TRANSLATION)
 
 # Creates a copy of the list of images that will be registered.
 images_reg = []
@@ -64,7 +64,7 @@ for i in range(len(images_reg)):
     images_reg[i] = cv2.cvtColor(img_as_ubyte(np.clip(images_reg[i],0,1)),cv2.COLOR_RGB2BGR)
     
 # Instanciates a VideoWriter object.
-video = cv2.VideoWriter('Lauren_uncompressed.avi', 0, 1, (505, 505)) # Previous codec was cv2.VideoWriter_fourcc(*'MP42') instead of "0".
+video = cv2.VideoWriter('uncompressed.avi', 0, 1, (505, 505)) # Previous codec was cv2.VideoWriter_fourcc(*'MP42') instead of "0".
 
 # Sets the font type for OpenCV.
 font = cv2.FONT_HERSHEY_SIMPLEX
@@ -72,8 +72,9 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 # Creates the video and writes the timestamps into it.
 for i in range(len(images_reg)):
     cv2.putText(images_reg[i], str(time[i])+' min', (20,450), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
+    cv2.rectangle(images_reg[i],(450,20),(487,25),(255,255,255),5)
     video.write(images_reg[i])
-    cv2.imwrite('Lauren_still_image'+str(i)+'.tiff',images_reg[i])
+    cv2.imwrite('still_image'+str(i)+'.tiff',images_reg[i])
 video.release()
 
 
